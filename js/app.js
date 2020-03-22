@@ -2,12 +2,13 @@ const lettersDiv = document.querySelector(`#qwerty`);
 const phraseDiv = document.querySelector(`#phrase`);
 const missed = 0;
 const start = document.querySelector('.start');
+const tries = document.getElementsByClassName(`tries`);
 const phrases = [
     `what do you mean`,
-     `This is an array`,
+     `this is an array`,
      `what is your name`,
      `this is cool`,
-     `Practicing javascript`
+     `practicing javascript`
 ];
 
 
@@ -57,23 +58,35 @@ function checkLetter(button){
     let ulLetters = document.getElementsByClassName(`letter`);
     let match = null;
     for(let i = 0; i < ulLetters.length; i += 1){
-        if(button.target.textContent === ulLetters[i].textContent){
+        if(button.textContent === ulLetters[i].textContent){
             ulLetters[i].className = `show`;
             match = ulLetters[i].textContent;
+        } else{
+            match = null;
         }
-        return match;
     }
+    return match;
 }
 
 // Listen for the onscreen keyboard to be clicked
 lettersDiv.addEventListener(`click`, (e) => {
-    let chosen = e.target;
-    if(chosen === `BUTTON`){
-        chosen.className = `chosen`;
-        chosen.disable = true;
-        checkLetter(chosen);
-    }
+        let chosen = e.target;
+        if(chosen.tagName === `BUTTON`){
+            chosen.className = `chosen`;
+            chosen.disable = true;
+            let letterFound = checkLetter(chosen);
+        } 
+            if(letterFound = null){
+                missed += 1;
+                let ol = document.getElementsByTagName(`OL`);
+                let hearts = document.getElementsByTagName(`LI:fisrt-child`);
+                ol.removeChild(hearts);
+            } else{
+                console.log(missed);
+            }
+
 })
+
 
 // Check if the game has been won or lost
 
