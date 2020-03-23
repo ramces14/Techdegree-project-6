@@ -2,7 +2,8 @@ const lettersDiv = document.querySelector(`#qwerty`);
 const phraseDiv = document.querySelector(`#phrase`);
 let missed = 0;
 const start = document.querySelector('.start');
-const tries = document.getElementsByClassName(`tries`);
+let show = document.getElementsByClassName(`show`);
+let letter = document.getElementsByClassName(`letter`);
 const phrases = [
     `what do you mean`,
      `this is an array`,
@@ -62,7 +63,7 @@ function checkLetter(button){
             ulLetters[i].classList.add(`show`);
             match = ulLetters[i].textContent;
         } else{
-            match = null;
+            match = match;
         }
     }
     return match;
@@ -74,19 +75,36 @@ lettersDiv.addEventListener(`click`, (e) => {
         if(chosen.tagName === `BUTTON`){
             chosen.className = `chosen`;
             chosen.disable = true;
-            let letterFound = checkLetter(chosen);
-            if(letterFound === null){
-                missed += 1;
-                let ol = document.getElementsByTagName(`OL`)[0];
-                let heart = document.getElementsByTagName(`img:last-child`);
-                ol.removeChild(heart);
-            } else{
-                missed += 0;
-            }
-        } 
+        } else {
+            false;
+        }
+        let letterFound = checkLetter(chosen);
+        if(letterFound === null){
+            missed += 1;
+            let ol = document.getElementsByTagName(`OL`)[0];
+            let heart = document.querySelector(`.tries:last-child`);
+            ol.removeChild(heart);
+        } else{
+            missed += 0;
+        }
 
-})
 
+});
 
 // Check if the game has been won or lost
 
+function checkWin(){
+        let show = document.getElementsByClassName(`show`);
+        let letter = document.getElementsByClassName(`letter`);
+        if(show.length === letter.length){
+            start.className = `win`;
+            let button = document.querySelector(`.btn-reset`);
+            button.textContent = `Try again!`;
+            win.style.display = `flex`;
+        }
+        if(missed > 4){
+            start.className = `lose`;
+            button.textContent = `Try again!`;
+            lose.style.display = `flex`;
+        }
+}
