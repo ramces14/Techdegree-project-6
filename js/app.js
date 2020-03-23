@@ -1,6 +1,6 @@
 const lettersDiv = document.querySelector(`#qwerty`);
 const phraseDiv = document.querySelector(`#phrase`);
-const missed = 0;
+let missed = 0;
 const start = document.querySelector('.start');
 const tries = document.getElementsByClassName(`tries`);
 const phrases = [
@@ -59,7 +59,7 @@ function checkLetter(button){
     let match = null;
     for(let i = 0; i < ulLetters.length; i += 1){
         if(button.textContent === ulLetters[i].textContent){
-            ulLetters[i].className = `show`;
+            ulLetters[i].classList.add(`show`);
             match = ulLetters[i].textContent;
         } else{
             match = null;
@@ -75,15 +75,15 @@ lettersDiv.addEventListener(`click`, (e) => {
             chosen.className = `chosen`;
             chosen.disable = true;
             let letterFound = checkLetter(chosen);
-        } 
-            if(letterFound = null){
+            if(letterFound === null){
                 missed += 1;
-                let ol = document.getElementsByTagName(`OL`);
-                let hearts = document.getElementsByTagName(`LI:fisrt-child`);
-                ol.removeChild(hearts);
+                let ol = document.getElementsByTagName(`OL`)[0];
+                let heart = document.getElementsByTagName(`img:last-child`);
+                ol.removeChild(heart);
             } else{
-                console.log(missed);
+                missed += 0;
             }
+        } 
 
 })
 
