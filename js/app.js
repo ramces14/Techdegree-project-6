@@ -74,14 +74,14 @@ lettersDiv.addEventListener(`click`, (e) => {
             chosen.className = `chosen`;
             chosen.disable = true;
             let letterFound = checkLetter(chosen);
-        if(letterFound === null){
-            missed += 1;
-            let ol = document.getElementsByTagName(`OL`)[0];
-            let heart = document.querySelector(`.tries:last-child`);
-            ol.removeChild(heart);
-        } else{
-            missed += 0;
-        }
+            if(letterFound === null){
+                missed += 1;
+                let ol = document.getElementsByTagName(`OL`)[0];
+                let heart = document.querySelector(`.tries:last-child`);
+                ol.removeChild(heart);
+            } else{
+                missed += 0;
+            }
         }
 
 
