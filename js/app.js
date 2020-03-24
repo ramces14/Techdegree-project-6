@@ -2,8 +2,6 @@ const lettersDiv = document.querySelector(`#qwerty`);
 const phraseDiv = document.querySelector(`#phrase`);
 let missed = 0;
 const start = document.querySelector('.start');
-let show = document.getElementsByClassName(`show`);
-let letter = document.getElementsByClassName(`letter`);
 const phrases = [
     `what do you mean`,
      `this is an array`,
@@ -75,10 +73,7 @@ lettersDiv.addEventListener(`click`, (e) => {
         if(chosen.tagName === `BUTTON`){
             chosen.className = `chosen`;
             chosen.disable = true;
-        } else {
-            false;
-        }
-        let letterFound = checkLetter(chosen);
+            let letterFound = checkLetter(chosen);
         if(letterFound === null){
             missed += 1;
             let ol = document.getElementsByTagName(`OL`)[0];
@@ -86,6 +81,7 @@ lettersDiv.addEventListener(`click`, (e) => {
             ol.removeChild(heart);
         } else{
             missed += 0;
+        }
         }
 
 
@@ -104,7 +100,10 @@ function checkWin(){
         }
         if(missed > 4){
             start.className = `lose`;
+            let button = document.querySelector(`.btn-reset`);
             button.textContent = `Try again!`;
             lose.style.display = `flex`;
         }
 }
+
+checkWin();
