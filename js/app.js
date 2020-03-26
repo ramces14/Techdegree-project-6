@@ -10,17 +10,6 @@ const phrases = [
      `practicing javascript`
 ];
 
-
-// listen for the start game button to be pressed
-start.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (start.style.display === `none`) {
-        start.style.display = `block`;
-    } else {
-        start.style.display = `none`;
-    }
-});
-
 // return a random pharse from array
 function getRandomPhraseAsArray(arr){
     for(let i = 0; i < arr.length; i += 1){
@@ -67,12 +56,50 @@ function checkLetter(button){
     return match;
 }
 
+// Check if the game has been won or lost
+
+function checkWin(){
+    let show = document.getElementsByClassName(`show`);
+    let letter = document.getElementsByClassName(`letter`);
+    if(show.length === letter.length){
+        start.className = `win`;
+        let win = document.querySelector(`.win`);
+        win.style.display = `flex`;
+        let button = document.querySelector(`a`);
+        button.textContent = `Try again!`;
+        let h1 = document.createElement(`h1`);
+        h1.textContent = `You Win!`
+        overlay.appendChild(h1);
+    }
+    if(missed > 4){
+        start.className = `lose`;
+        let lose = document.querySelector(`.lose`);
+        lose.style.display = `flex`;
+        let button = document.querySelector(`a`);
+        button.textContent = `Try again!`;
+        let overlay = document.querySelector(`#overlay`);
+        let h1 = document.createElement(`h1`);
+        h1.textContent = `You lost!`
+        overlay.appendChild(h1);
+    }
+}
+
+// listen for the start game button to be pressed
+start.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (start.style.display === `none`) {
+        start.style.display = `block`;
+    } else {
+        start.style.display = `none`;
+    }
+});
+
 // Listen for the onscreen keyboard to be clicked
 lettersDiv.addEventListener(`click`, (e) => {
         let chosen = e.target;
         if(chosen.tagName === `BUTTON`){
             chosen.className = `chosen`;
-            chosen.disable = true;
+            chosen.disabled = true;
             let letterFound = checkLetter(chosen);
             if(letterFound === null){
                 missed += 1;
@@ -82,28 +109,9 @@ lettersDiv.addEventListener(`click`, (e) => {
             } else{
                 missed += 0;
             }
+            checkWin();
         }
-
-
 });
 
-// Check if the game has been won or lost
 
-function checkWin(){
-        let show = document.getElementsByClassName(`show`);
-        let letter = document.getElementsByClassName(`letter`);
-        if(show.length === letter.length){
-            start.className = `win`;
-            let button = document.querySelector(`.btn-reset`);
-            button.textContent = `Try again!`;
-            win.style.display = `flex`;
-        }
-        if(missed > 4){
-            start.className = `lose`;
-            let button = document.querySelector(`.btn-reset`);
-            button.textContent = `Try again!`;
-            lose.style.display = `flex`;
-        }
-}
 
-checkWin();
