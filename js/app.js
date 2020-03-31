@@ -109,6 +109,7 @@ lettersDiv.addEventListener(`click`, (e) => {
             } else{
                 missed += 0;
             }
+            
             checkWin();
         }
 });
