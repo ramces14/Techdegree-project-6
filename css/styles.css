@@ -141,6 +141,7 @@ button {
 
 .title {
   color: #FFF;
+  font-size: 45px;
 }
 
 .start {
@@ -166,3 +167,29 @@ button {
 .lose a {
   color: var(--color-lose);
 }
+
+.letter{
+  margin-top: 15px;
+  width: 50px;
+  height: 50px;
+}
+
+.keyrow button {
+  padding: 3px 7px;
+}
+
+@media (min-width: 768px){
+  .keyrow button {
+    padding: 8px 16px;
+  }
+
+  .letter{
+    width: 65px;
+    height: 65px;
+  }
+
+  .title{
+    font-size: 60px;
+  }
+}
+

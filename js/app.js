@@ -1,13 +1,19 @@
 const lettersDiv = document.querySelector(`#qwerty`);
 const phraseDiv = document.querySelector(`#phrase`);
 let missed = 0;
-const start = document.querySelector('.start');
+const overlay = document.querySelector('#overlay');
+const button = document.querySelector(`.btn_reset`);
+
+const refreshPage = () => {
+    location.reload();
+} 
+
 const phrases = [
-    `what do you mean`,
+    `hello world`,
      `this is an array`,
      `what is your name`,
      `this is cool`,
-     `practicing javascript`
+     `javascript is cool`
 ];
 
 // return a random pharse from array
@@ -62,7 +68,7 @@ function checkWin(){
     let show = document.getElementsByClassName(`show`);
     let letter = document.getElementsByClassName(`letter`);
     if(show.length === letter.length){
-        start.className = `win`;
+        overlay.className = `win`;
         let win = document.querySelector(`.win`);
         win.style.display = `flex`;
         let button = document.querySelector(`a`);
@@ -72,12 +78,11 @@ function checkWin(){
         overlay.appendChild(h1);
     }
     if(missed > 4){
-        start.className = `lose`;
+        overlay.className = `lose`;
         let lose = document.querySelector(`.lose`);
         lose.style.display = `flex`;
         let button = document.querySelector(`a`);
         button.textContent = `Try again!`;
-        let overlay = document.querySelector(`#overlay`);
         let h1 = document.createElement(`h1`);
         h1.textContent = `You lost!`
         overlay.appendChild(h1);
@@ -85,12 +90,17 @@ function checkWin(){
 }
 
 // listen for the start game button to be pressed
-start.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (start.style.display === `none`) {
-        start.style.display = `block`;
+
+overlay.addEventListener('click', (e) => {
+    if(overlay.className === 'start'){
+        e.preventDefault();
+        if (overlay.style.display === `none`) {
+            overlay.style.display = `block`;
+        } else {
+            overlay.style.display = `none`;
+        }
     } else {
-        start.style.display = `none`;
+        refreshPage();
     }
 });
 
